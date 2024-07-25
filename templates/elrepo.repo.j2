@@ -29,12 +29,17 @@ protect=0
 
 [elrepo-kernel]
 name=ELRepo.org Community Enterprise Linux Kernel Repository - el{{ elrepo_dist }}
+{% if ansible_distribution_major_version == '7' %}
+baseurl=http://ord.mirror.rackspace.com/elrepo/archive/kernel/el{{ elrepo_dist }}/$basearch/
+#mirrorlist=http://mirrors.elrepo.org/mirrors-elrepo-kernel.el{{ elrepo_dist }}
+{% else %}
 baseurl=http://elrepo.org/linux/kernel/el{{ elrepo_dist }}/$basearch/
-	http://mirrors.coreix.net/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
-	http://mirror.rackspace.com/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
-	http://repos.lax-noc.com/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
-	http://mirror.ventraip.net.au/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
+        http://mirrors.coreix.net/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
+        http://mirror.rackspace.com/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
+        http://repos.lax-noc.com/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
+        http://mirror.ventraip.net.au/elrepo/kernel/el{{ elrepo_dist }}/$basearch/
 mirrorlist=http://mirrors.elrepo.org/mirrors-elrepo-kernel.el{{ elrepo_dist }}
+{% endif %}
 enabled={{ '1' if elrepo_repository_kernel|bool else '0' }}
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org
